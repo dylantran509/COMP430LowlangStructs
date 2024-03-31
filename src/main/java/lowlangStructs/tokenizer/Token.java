@@ -1,5 +1,5 @@
 package lowlangStructs.tokenizer;
 
-public class Token {
-
+public interface Token {
+    
 }
