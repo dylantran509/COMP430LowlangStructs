@@ -54,6 +54,10 @@ program ::= structdef* fdef* stmt* stmt*
 
 Format: TokenName (Hashcode)
 
+_During the tokenizing stage, the tokenizer doesnt really care whether a name belongs to a variable, function, or struct._
+_Thus, they all fall under the category "IdentifierToken"_
+Format: TokenName (Hashcode)
+
 - IdentifierToken (String)
 - NumberToken (int)
 - IntToken (0)
