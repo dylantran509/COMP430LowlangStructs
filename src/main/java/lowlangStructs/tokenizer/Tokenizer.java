@@ -28,8 +28,8 @@ public class Tokenizer {
             new SymbolTokenPair("-", new MinusToken()),
             new SymbolTokenPair("/", new DivideToken()),
             new SymbolTokenPair("<", new LessThanToken()),
-            new SymbolTokenPair("==", new DoubleEqualsToken()),
-            new SymbolTokenPair("!=", new NotEqualsToken()),
+            new SymbolTokenPair("==", new DoubleEqualToken()),
+            new SymbolTokenPair("!=", new NotEqualToken()),
             new SymbolTokenPair("&", new AndToken())
     };
     
