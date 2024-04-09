@@ -77,7 +77,7 @@ public class Tokenizer {
         if (token != null)
             return token;
         
-        throw new TokenizerException("Tokenizer Exception: Could not tokenize " +
+        throw new TokenizerException("TokenizerException: Could not tokenize " +
                                      readUntilWhitespaceOrEOF());
         
         
@@ -107,10 +107,12 @@ public class Tokenizer {
             if (Character.isDigit(input.charAt(position))){
                 digits += input.charAt(position);
                 position++;
-            } else {
-                // Encountered number followed by letter/symbol, abort reading number
+            } else if (Character.isAlphabetic(input.charAt(position))){
+                // Encountered number followed by letter, abort reading number
                 position = positionCopy;
                 digits = "";
+                break;
+            } else {
                 break;
             }
         }
