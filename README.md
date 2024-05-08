@@ -10,7 +10,7 @@ i is an integer
 ### Types
 type ::= `int` | _Integers are a type_
          `void` |
-         structname | _Structures are a type_
+          structname| _Structures are a type_
          `(` `*` type `)` _Pointer to something of type_
 
 param :: = `(` type var `)`
@@ -47,7 +47,7 @@ exp ::= i | `true` | `false` | _Integers and booleans_
         `(` op exp exp `)` |
         `(` `call` funcname exp* `)` _Function calls_
 
-program ::= structdef* fdef* stmt* stmt*
+program ::= structdef* fdef* stmt*
 
 
 ## Tokens
@@ -87,4 +87,64 @@ Format: TokenName (Hashcode)
 - NullToken (24)
 - AndToken (25)
 - CallToken (26)
+
+## AST Definition
+
+_Numeric HashCode only for nodes that dont have children/fields_
+
+### Type nodes (interface Type)
+
+- class IntType (hashCode 0)
+- class BoolType (hashcode 1)
+- class VoidType (hashCode 2)
+- class StructType
+- class PointerType
+
+### LHS nodes (interface LHS)
+
+- class VarLHS 
+- class FieldLHS
+- class DerefLHS
+
+### Statement Nodes (interface Stmt)
+
+- class VardecStmt
+- class AssignStmt
+- class WhileStmt
+- class IfStmt
+- class ReturnStmt
+- class BlockStmt
+- class PrintLnStmt
+- class ExprStmt
+
+### Operator Nodes (interface Op)
+
+- class PlusOp (hashCode 3)
+- class MinusOp (hashCode 4)
+- class StarOp (hashCode 5)
+- class DivideOp (hashCode 6)
+- class LessThanOp (hashCode 7)
+- class DoubleEqualOp (hashCode 8)
+- class NotEqualOp (hashCode 9)
+
+### Expression Nodes (interface Expr)
+
+- class NumberLiteralExpr
+- class BooleanLiteralExpr
+- class NullExpr (hashCode 10)
+- class LHSExpr
+- class AddressExpr
+- class DeferExpr
+- class BinOpExpr
+- class CallExpr
+
+### Miscelleaneous Nodes
+
+- class Param
+- class StructDef
+- class FuncDef
+
+### Root Node
+
+- class Program
 
