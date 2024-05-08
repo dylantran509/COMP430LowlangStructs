@@ -254,9 +254,20 @@ public class Parser {
         
     }
     
+    // stmt ::= '(' 'vardec' type var ')'    |
+    //          '(' 'assign' lhs exp ')'     |
+    //          '(' 'while' exp stmt ')'     |
+    //          '(' 'if' exp stmt [stmt] ')' |
+    //          '(' 'return' [exp] ')'       |
+    //          '(' 'block' stmt* ')'        |
+    //          '(' 'println' exp ')'        |
+    //          '(' 'stmt' exp ')' 
+    //
     public ParseResult<Stmt> parseStmt(int position) throws ParseException {
-        return null;
+        
     }
+    
+    
     
     
     
