@@ -1,6 +1,8 @@
 package lowlangStructs.parser;
 import lowlangStructs.tokenizer.*;
+import sun.jvm.hotspot.opto.Block;
 
+import java.beans.Expression;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -264,9 +266,92 @@ public class Parser {
     //          '(' 'stmt' exp ')' 
     //
     public ParseResult<Stmt> parseStmt(int position) throws ParseException {
-        
+        try {
+            return parseVardecStmt(position);
+        }catch (Exception e){}
+        try{
+            return parseAssignStmt(position);
+        }catch (Exception e){}
+        try {
+            return parseWhileStmt(position);
+        }catch (Exception e){}
+        try {
+            return parsePrintLn(position);
+        }catch (Exception e){}
+        try {
+            return parseBlockStmt(position);
+        }catch (Exception e){}
     }
-    
+
+    // stmt ::= '(' 'vardec' type var ')'    |
+    public ParseResult<Stmt> parseVardecStmt(int position) throws ParseException {
+        assertTokenIs(position, new LeftParenToken());
+        assertTokenIs(position + 1, new VardecToken());
+        ParseResult<Type> type = parseType(position + 2);
+        ParseResult<Variable> var = parseVariable(type.nextPosition);
+        assertTokenIs(var.nextPosition, new RightParenToken());
+
+        return new ParseResult<Stmt>(var.nextPosition + 1, new VardecStmt(type.result, var.result));
+    }
+    //          '(' 'assign' lhs exp ')'     |
+    public ParseResult<Stmt> parseAssignStmt(int position) throws ParseException {
+        assertTokenIs(position, new LeftParenToken());
+        assertTokenIs(position + 1, new AssignToken());
+        ParseResult<LHS> lhs = parseLHS(position + 2);
+        ParseResult<Expr> exp = parseExpr(lhs.nextPosition);
+        assertTokenIs(exp.nextPosition, new RightParenToken());
+
+        return new ParseResult<Stmt>(exp.nextPosition + 1, new AssignStmt(lhs.result, exp.result));
+    }
+    //          '(' 'while' exp stmt ')'     |
+    public ParseResult<Stmt>parseWhileStmt(int position) throws ParseException {
+        assertTokenIs(position, new LeftParenToken());
+        assertTokenIs(position + 1, new WhileToken());
+        ParseResult<Expr> expr = parseExpr(position + 2);
+        ParseResult<Stmt> stmt = parseStmt(expr.nextPosition);
+        assertTokenIs(stmt.nextPosition, new RightParenToken());
+
+        return new ParseResult<Stmt>(stmt.nextPosition + 1, new WhileStmt(expr.result, stmt.result));
+
+    }
+    //          '(' 'println' exp ')'        |
+    public ParseResult<Stmt> parsePrintLn(int position) throws ParseException {
+        assertTokenIs(position, new LeftParenToken());
+        assertTokenIs(position + 1, new PrintLnToken());
+        ParseResult<Expr> expr = parseExpr(position + 2);
+        assertTokenIs(expr.nextPosition, new RightParenToken());
+
+        return new ParseResult<Stmt>(expr.nextPosition + 1, new PrintLnStmt(expr.result));
+
+
+    }
+    /*       '(' 'block' stmt* ')'
+    public ParseResult<Stmt> parseBlockStmt(int position) throws ParseException {
+        assertTokenIs(position, new LeftParenToken());
+        ParseResult<Block> block = parseBlockStmt(position + 1);
+        position = block.nextPosition;
+
+        // Parse 0 or more Param objects
+        List<Stmt> stmts = new ArrayList<>();
+        while (true) {
+            try {
+                ParseResult<Stmt> stmt = parseStmt(position);
+                stmts.add(stmt.result);
+                position = stmt.nextPosition;
+
+            } catch (ParseException e) {
+                break;
+            }
+        }
+
+        assertTokenIs(block.nextPosition, new RightParenToken());
+
+        return new ParseResult<Stmt>(position + 1, new BlockStmt(stmts.result));
+    }
+
+     */
+
+
     
     
     
