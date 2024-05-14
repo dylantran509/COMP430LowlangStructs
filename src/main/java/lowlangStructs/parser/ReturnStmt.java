@@ -4,6 +4,10 @@ public class ReturnStmt implements Stmt {
 
     public final Expr expr;
     
+    public ReturnStmt() {
+        this.expr = null;
+    }
+    
     public ReturnStmt(final Expr expr) {
         this.expr = expr;
     }
