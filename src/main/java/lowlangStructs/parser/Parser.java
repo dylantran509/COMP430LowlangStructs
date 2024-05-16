@@ -281,13 +281,13 @@ public class Parser {
     public ParseResult<Stmt> parseStmt(int position) throws ParseException {
         try {
             return parseVardecStmt(position);
-        }catch (Exception e){}
+        } catch (Exception e) {}
         try{
             return parseAssignStmt(position);
-        }catch (Exception e){}
+        } catch (Exception e) {}
         try {
             return parseWhileStmt(position);
-        }catch (Exception e){}
+        } catch (Exception e) {}
         try {
             return parseIfStmt(position);
         } catch (Exception e) {}
@@ -296,10 +296,13 @@ public class Parser {
         } catch (Exception e) {}
         try {
             return parseBlockStmt(position);
-        }catch (Exception e){}
+        } catch (Exception e) {}
         try {
             return parsePrintLn(position);
-        }catch (Exception e){}
+        } catch (Exception e) {}
+        try {
+            return parseExprStmt(position);
+        } catch (Exception e) {}
         
         throw new ParseException("ParseException. Unable to parse statement");
     }

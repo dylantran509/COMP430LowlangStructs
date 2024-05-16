@@ -112,7 +112,7 @@ _Numeric HashCode only for nodes that dont have children/fields_
 - class AssignStmt
 - class WhileStmt
 - class IfStmt
-- class ReturnStmt
+- class ReturnStmt (hashCode 11 if expr null)
 - class BlockStmt
 - class PrintLnStmt
 - class ExprStmt

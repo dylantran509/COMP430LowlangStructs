@@ -19,4 +19,9 @@ public class NumberToken implements Token{
         return value;
     }
     
+    @Override
+    public String toString() {
+        return "NumberToken(" + value + ")";
+    }
+    
 }

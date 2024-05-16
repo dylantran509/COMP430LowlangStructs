@@ -48,6 +48,8 @@ public class Program {
         StringBuilder prettyString = new StringBuilder();
         int IC = 0;
         for (char c: arr) {
+            if (c == ' ')
+                continue;
             if (c == '(') {
                 prettyString.append(c + "\n");
                 IC++;
@@ -55,7 +57,6 @@ public class Program {
                 continue;
             }
             if (c == ')') {
-                prettyString.append(c);
                 IC--;
                 prettyString.append("\n" + indent(IC) + c);
                 continue;

@@ -150,7 +150,7 @@ public class Tokenizer {
                 return new AssignToken();
             else if (name.equals("while"))
                 return new WhileToken();
-            else if (name.equals("If"))
+            else if (name.equals("if"))
                 return new IfToken();
             else if (name.equals("return"))
                 return new ReturnToken();

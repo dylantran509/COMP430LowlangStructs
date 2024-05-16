@@ -25,14 +25,21 @@ public class IfStmt implements Stmt {
         if (!(other instanceof IfStmt))
             return false;
         final IfStmt otherAsIfStmt = (IfStmt)other;
+        boolean elseBodyMatch = true;
+        if (elseBody != null && otherAsIfStmt.elseBody != null)
+            elseBodyMatch = elseBody.equals(otherAsIfStmt.elseBody);
+        else
+            elseBodyMatch = (elseBody == null && otherAsIfStmt.elseBody == null);
         return (guard.equals(otherAsIfStmt.guard) &&
                 ifBody.equals(otherAsIfStmt.ifBody) &&
-                elseBody.equals(otherAsIfStmt.elseBody));
+                elseBodyMatch);
     }
     
     @Override
     public int hashCode() {
-        return guard.hashCode() + ifBody.hashCode() + elseBody.hashCode();
+        if (elseBody != null)
+            return guard.hashCode() + ifBody.hashCode() + elseBody.hashCode();
+        return guard.hashCode() + ifBody.hashCode();
     }
     
     @Override

@@ -14,13 +14,20 @@ public class ReturnStmt implements Stmt {
     
     @Override
     public boolean equals(final Object other) {
-        return (other instanceof ReturnStmt &&
-                expr.equals(((ReturnStmt)other).expr));
+        if (!(other instanceof ReturnStmt))
+            return false;
+        final ReturnStmt otherAsReturnStmt = (ReturnStmt)other;
+        if (expr != null && otherAsReturnStmt.expr != null)
+            return expr.equals(otherAsReturnStmt.expr);
+        else
+            return (expr == null && otherAsReturnStmt.expr == null);
     }
     
     @Override
     public int hashCode() {
-        return expr.hashCode();
+        if (expr != null)
+            return expr.hashCode();
+        return 11;
     }
     
     @Override
