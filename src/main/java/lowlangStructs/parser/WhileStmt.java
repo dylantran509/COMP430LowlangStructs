@@ -2,11 +2,11 @@ package lowlangStructs.parser;
 
 public class WhileStmt implements Stmt {
 
-    public final Expr expr;
+    public final Expr guard;
     public final Stmt stmt;
     
-    public WhileStmt(final Expr expr, final Stmt stmt) {
-        this.expr = expr;
+    public WhileStmt(final Expr guard, final Stmt stmt) {
+        this.guard = guard;
         this.stmt = stmt;
     }
     
@@ -15,19 +15,19 @@ public class WhileStmt implements Stmt {
         if (!(other instanceof WhileStmt))
             return false;
         final WhileStmt otherAsWhileStmt = (WhileStmt)other;
-        return (expr.equals(otherAsWhileStmt.expr) &&
+        return (guard.equals(otherAsWhileStmt.guard) &&
                 stmt.equals(otherAsWhileStmt.stmt));
     }
     
     @Override
     public int hashCode() {
-        return expr.hashCode() + stmt.hashCode();
+        return guard.hashCode() + stmt.hashCode();
     }
     
     @Override
     public String toString() {
         return ("WhileStmt(" +
-                expr.toString() + ", " +
+                guard.toString() + ", " +
                 stmt.toString() + ")");
     }
     

@@ -148,3 +148,16 @@ _Numeric HashCode only for nodes that dont have children/fields_
 
 - class Program
 
+## Types
+
+- Structs are a type, and can contain references to themselves in their parameters
+  - Must store struct as valid type somewhere to be used within itself
+- Funcs can be stored in typeEnv to keep track of their return type for use in other contexts
+- expr1 + expr2 => int; expr1, expr2 = int
+- expr1 - expr2 => int; expr1, expr2 = int
+- expr1 / expr2 => int; expr1, expr2 = int
+- expr1 < expr2 => bool; expr1, expr2 = int
+- expr1 == expr2 => bool; expr1, expr2 = int
+- expr1 != expr2 => bool; expr1, expr2 = int
+
+
