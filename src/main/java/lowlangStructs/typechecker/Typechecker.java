@@ -82,6 +82,8 @@ public class Typechecker {
             else {
                 // Unique param name, ensure type is valid
                 typecheckType(param.type);
+                // Valid Param, add name to list
+                names.add(param.var.name);
             }
         }
     }
@@ -178,7 +180,7 @@ public class Typechecker {
         final Type ExprType = typecheckExpr(stmt.expr, typeEnv);
         
         if (LHSType == null)
-            throw new TypecheckerException("TypecheckerException. Cannot assign value to null: " + stmt.toString());
+            throw new TypecheckerException("TypecheckerException. Cannot assign value to null.");
         
         if (ExprType == null)
             if (!(LHSType instanceof PointerType))
@@ -207,7 +209,7 @@ public class Typechecker {
         // Ensure guard resolves to BoolType
         Type guardType = typecheckExpr(stmt.guard, typeEnv);
         if (!(guardType instanceof BoolType))
-            throw new TypecheckerException("TypecheckerException. If guard must resolve to BoolType: " + stmt.toString());
+            throw new TypecheckerException("TypecheckerException. If guard must resolve to BoolType");
         typecheckStmt(stmt.ifBody, typeEnv);
         if (stmt.elseBody != null)
             typecheckStmt(stmt.elseBody, typeEnv);
@@ -233,7 +235,7 @@ public class Typechecker {
             }
         }
         // ReturnStmt outside of FuncDef
-        throw new TypecheckerException("TypecheckerException. Cannot have ReturnStmt outside of FuncDef: " + stmt.toString());
+        throw new TypecheckerException("TypecheckerException. Cannot have ReturnStmt outside of FuncDef");
     }
     
     public Map<Variable, Type> typecheckBlockStmt(final BlockStmt stmt, final Map<Variable, Type> typeEnv) throws TypecheckerException {
@@ -245,6 +247,10 @@ public class Typechecker {
     
     public Type typecheckLHS(final LHS lhs, final Map<Variable, Type> typeEnv) throws TypecheckerException {
         
+        //Exception dealt with in typecheckAssignStmt
+        if (lhs == null)
+            return null;
+        
         if (lhs instanceof VarLHS) {
             // simple lookup in typeEnv
             VarLHS varlhs = (VarLHS)lhs;
@@ -252,7 +258,7 @@ public class Typechecker {
                 return typeEnv.get(varlhs.var);
             }
             else
-                throw new TypecheckerException("TypecheckerException. Unknown LHS: " + varlhs.toString());
+                throw new TypecheckerException("TypecheckerException. Unknown variable: " + varlhs.toString());
         }
         
         if (lhs instanceof FieldLHS) {
