@@ -206,4 +206,12 @@ public class TokenizerTest {
             });
         System.out.println("invalidIdentifierTest result:\n" + myException.toString() + "\n");
     }
+    
+    @Test
+    void nodeStructTest() throws TokenizerException {
+        String input = "(struct Node"
+                     + "    (int value)"
+                     + "    ((* Node) next))";
+        Token[] tokens = new Tokenizer(input).tokenize();
+    }
 }

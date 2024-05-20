@@ -49,6 +49,9 @@ public class Typechecker {
         for (Stmt stmt: program.stmts)
             typeEnv = typecheckStmt(stmt, typeEnv);
         
+        // Program is well-typed!
+        System.out.println("Program is well-typed!");
+        
     }
     
     public void typecheckStructDef(final StructDef structDef) throws TypecheckerException {

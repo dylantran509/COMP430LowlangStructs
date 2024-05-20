@@ -134,7 +134,7 @@ public class TypecheckerTest {
     @Test
     public void typecheckFibonacciFuncTest() throws TypecheckerException {
         
-        // (func fibonacci (int n) int
+        // (func fibonacci ((int n)) int
         //     (if (< n 2)
         //         (return n) 
         //         (return (+ (call fibonacci (- n 1)) (call fibonacci (- n 2)))))

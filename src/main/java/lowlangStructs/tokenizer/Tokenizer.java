@@ -57,7 +57,7 @@ public class Tokenizer {
     }
     
     public void skipWhitespace() {
-        while(position < input.length() && input.charAt(position) == ' ')
+        while(position < input.length() && Character.isWhitespace(input.charAt(position)))
             position++;
     }
     

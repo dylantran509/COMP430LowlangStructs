@@ -35,6 +35,7 @@ public class Parser {
         public boolean equals(final Object other) {
             if (!(other instanceof ParseResult))
                 return false;
+            @SuppressWarnings("unchecked")
             final ParseResult<A> otherAsParseResult = (ParseResult<A>)other;
             return (nextPosition == (otherAsParseResult.nextPosition) &&
                     result.equals(otherAsParseResult.result));
